@@ -1,5 +1,6 @@
 require 'random_data'
 
+
   50.times do
     Post.create({
       title: RandomData.random_sentence,
@@ -8,6 +9,8 @@ require 'random_data'
   end
 
   posts = Post.all
+
+  Post.find_or_create_by(title:"Unique Title", body: "Unique Body")
 
   100.times do
     Comment.create!(
