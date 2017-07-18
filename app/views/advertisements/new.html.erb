@@ -1,0 +1,22 @@
+<h1> New Post </h1>
+<div class ="row">
+  <div class = "offset-md-3 col-md-8">
+    <%= form_for @advertisement do |f| %>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class:'form-control', placeholder: "Enter AD Title" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :body %>
+      <%= f.text_area :body, class:'form-control', placeholder: "Enter AD Body" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :price %>
+      <%= f.text_area :price, class:'form-control', placeholder: "Enter AD Price" %>
+    </div>
+    <div class="form-group">
+      <%= f.submit "Save", class: 'btn btn-success' %>
+    </div>
+    <% end %>
+  </div>
+</div>

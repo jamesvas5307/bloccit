@@ -8,6 +8,14 @@ require 'random_data'
     })
   end
 
+  50.times do
+    Advertisement.create({
+      title: RandomData.random_sentence,
+      body: RandomData.random_paragraph,
+      price: RandomData.random_number
+    })
+  end
+  advertisements = Advertisement.all
   posts = Post.all
 
   Post.find_or_create_by(title:"Unique Title", body: "Unique Body")
