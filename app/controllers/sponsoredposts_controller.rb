@@ -1,22 +1,16 @@
 class SponsoredpostsController < ApplicationController
+	before_action :grab_topic, except: [:index]
 
     def show
-      @sponsoredpost= Sponsoredpost.find(params[:id])
+      @sponsoredpost = @topic.sponsoredposts.find(params[:id])
     end
 
     def new
-      @topic = Topic.find(params[:topic_id])
-      @sponsoredpost = Sponsoredpost.new
+      @sponsoredpost = @topic.sponsoredposts.new
     end
 
     def create
-      # Here we call a new instance of post
-      @sponsoredpost = Sponsoredpost.new
-      @sponsoredpost.name = params[:sponsoredpost][:name]
-      @sponsoredpost.body = params[:sponsoredpost][:body]
-      @sponsoredpost.price = params[:sponsoredpost][:price]
-      @topic = Topic.find(params[:topic_id])
-      @sponsoredpost.topic = @topic
+ 	 @sponsoredpost = @topic.sponsoredposts.build( sponsorpost_params )
 
       # if successful save Post to the database. And display a successful notice using flash.
       # Then redirect the user back to the post to show the user
@@ -31,16 +25,13 @@ class SponsoredpostsController < ApplicationController
     end
 
     def edit
-      @sponsoredpost = Sponsoredpost.find(params[:id])
+      @sponsoredpost = @topic.sponsoredposts.find(params[:id])
     end
 
     def update
-      @sponsoredpost = Sponsoredpost.find(params[:id])
-      @sponsoredpost.name = params[:sponsoredpost][:name]
-      @sponsoredpost.body = params[:sponsoredpost][:body]
-      @sponsoredpost.price = params[:sponsoredpost][:price]
+      @sponsoredpost = @topic.sponsoredposts.find(params[:id])
 
-      if @sponsoredpost.save
+      if @sponsoredpost.update_attributes( sponsorpost_params )
         flash[:notice] = "Post was updated."
         redirect_to [ @sponsoredpost.topic, @sponsoredpost ]
       else
@@ -50,7 +41,7 @@ class SponsoredpostsController < ApplicationController
     end
 
     def destroy
-      @sponsoredpost = Sponsoredpost.find(params[:id])
+      @sponsoredpost = @topic.sponsoredposts.find(params[:id])
       if @sponsoredpost.destroy
         flash[:notice] = "\"#{@sponsoredpost.name}\" was deleted successfully."
         redirect_to @sponsoredpost.topic
@@ -59,4 +50,15 @@ class SponsoredpostsController < ApplicationController
         render :show
       end
     end
+
+    private
+
+    def grab_topic
+	  @topic = Topic.find(params[:topic_id])
+    end
+
+    def sponsorpost_params
+	  params.require(:sponsoredpost).permit(:name, :body, :price)
+    end
+
 end
