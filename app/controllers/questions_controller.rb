@@ -34,12 +34,13 @@ class QuestionsController < ApplicationController
   def destroy
   end
 
+  def question_params
+    params.require(:question).permit(:title, :body, :resolved)
+  end
+
   def update
     @question = Question.find(params[:id])
-    @question.title = params[:question][:title]
-    @question.body = params[:question][:body]
-    @question.resolved = params[:question][:resolved]
-    if @question.save
+    if @question.update_attributes(question_params)
       flash[:notice] = "Question was updated."
       redirect_to @question
     else
