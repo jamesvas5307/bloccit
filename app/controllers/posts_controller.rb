@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
 
+  before_action :require_sign_in, except: [:show]
   before_action :grab_topic, except: [:index]
+
+
 
   def show
     @post = @topic.posts.find(params[:id])
@@ -14,6 +17,7 @@ class PostsController < ApplicationController
     # Here we call a new instance of post
 
     @post = @topic.posts.build ( post_params )
+    @post.user = current_user
 
     # if successful save Post to the database. And display a successful notice using flash.
     # Then redirect the user back to the post to show the user

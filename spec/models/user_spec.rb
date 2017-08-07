@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
   let(:email) { "user@bloccit.com" }
   let(:password) { "password" }
   let(:user) {User.create!(name: name, email: email, password: password)}
+  it{ is_expected.to have_many(:post) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_length_of(:name).is_at_least(1) }
   it { is_expected.to validate_presence_of(:email) }
