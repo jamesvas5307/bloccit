@@ -9,4 +9,9 @@ class Post < ActiveRecord::Base
   validates :user, presence: true
 
   default_scope { order('created_at DESC') }
+
+  scope :order_by_title -> Post.order('title DESC')
+  scope :order_by_reverse_created_at -> Post.order('created_at DESC')
+
+
 end
