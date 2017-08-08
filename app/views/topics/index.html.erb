@@ -2,17 +2,9 @@
 
 <div class="row">
   <% @topics.each do |topic| %>
-    <div class="media">
-      <div class="media-body">
-        <h4 class="media-heading">
-          <%= link_to topic.name, topic %>
-        </h4>
-        <small>
-          <%= topic.description %>
-        </small>
-      </div>
-    </div>
+  <%= render partial: 'topic', locals:{topic: topic}  %>
   <% end %>
+
   <% if user_is_authorized_for_topics? %>
   <div class="col-md-4">
     <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
