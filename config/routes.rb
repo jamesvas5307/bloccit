@@ -9,6 +9,11 @@ Rails.application.routes.draw do
     resources :sponsoredposts, except: [:index]
   end
 
+  #It uses [] because it doesn't want any id specific routes being used just the CRUD abilities
+  resources :posts, only: [] do
+    resources :comments, only: [:create, :destroy]
+  end
+
 
 
 
