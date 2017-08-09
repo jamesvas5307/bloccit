@@ -6,4 +6,6 @@ class Topic < ActiveRecord::Base
 
   has_many :sponsoredposts, dependent: :destroy
 
+  
+
 end
