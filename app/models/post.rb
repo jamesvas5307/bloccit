@@ -12,6 +12,8 @@ class Post < ActiveRecord::Base
   validates :user, presence: true
 
   default_scope { order('rank DESC') }
+ # the lambda(->) is used to ensure that a user is signed in, the join method is then used to retrieve all posts which belong in the public topic
+  scope :visible_to, -> (user) { user ? all : joins(:topic).where('topics.public' => true) }
 
   def up_votes
      votes.where(value: 1).count
